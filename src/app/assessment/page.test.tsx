@@ -7,7 +7,7 @@ describe("Assessment", () => {
   it("starts with one focused identity question", () => {
     render(<Assessment />);
 
-    expect(screen.getByText("第 1 步，共 5 步")).toBeInTheDocument();
+    expect(screen.getByText("第 1 步，共 4 步")).toBeInTheDocument();
     expect(
       screen.getByRole("heading", { name: "先从你现在所处的阶段开始" }),
     ).toBeInTheDocument();

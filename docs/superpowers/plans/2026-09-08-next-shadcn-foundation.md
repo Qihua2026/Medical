@@ -15,7 +15,8 @@
 - Brand primary is `#4E9365`, sampled from the approved screenshot.
 - The product voice is calm, professional, and deeply familiar with medical careers.
 - Pages use low information density, generous whitespace, large cards, and one primary task.
-- MVP flow remains profile assessment → role recommendation → strategy report → continued service.
+- Web V0 serves paid, activated users; it does not offer diagnosis purchase or payment.
+- MVP flow remains activation → profile assessment → role recommendation → strategy report → optional human coaching.
 - Never fabricate career history or promise offers, salaries, or admission probability.
 - Changes originate from `dev`; no direct changes to `main`.
 

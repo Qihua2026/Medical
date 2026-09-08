@@ -26,8 +26,8 @@ export default function Home() {
           <h1 className="text-balance text-4xl font-semibold leading-[1.14] tracking-[-0.04em] text-foreground sm:text-5xl lg:text-[3.75rem]">找到更适合你的<span className="block text-primary">医药职业方向</span></h1>
           <p className="mt-7 max-w-xl text-pretty text-lg leading-8 text-muted-foreground">不再靠岗位名称猜方向。我们会像一位专业顾问一样，逐步了解你的教育、经历与真实偏好，再给出有依据的岗位判断。</p>
           <div className="mt-9 flex flex-col items-start gap-4 sm:flex-row sm:items-center">
-            <Button asChild size="lg"><Link href="/assessment">开始 10 分钟职业诊断<ArrowRight aria-hidden="true" className="size-4" /></Link></Button>
-            <span className="text-sm text-muted-foreground">免费获得 Top 3 岗位建议</span>
+            <Button asChild size="lg"><Link href="/assessment">进入职业诊断<ArrowRight aria-hidden="true" className="size-4" /></Link></Button>
+            <span className="text-sm text-muted-foreground">约 5–8 分钟完成职业画像</span>
           </div>
           <ul className="mt-10 grid gap-3 text-sm text-foreground/80 sm:grid-cols-3" aria-label="诊断结果包括">
             {outcomes.map((outcome) => <li className="flex items-center gap-2" key={outcome}><span className="grid size-5 shrink-0 place-items-center rounded-full bg-primary/12 text-primary-dark"><Check aria-hidden="true" className="size-3" strokeWidth={3} /></span>{outcome}</li>)}

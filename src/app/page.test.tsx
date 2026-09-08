@@ -4,7 +4,7 @@ import { describe, expect, it } from "vitest";
 import Home from "./page";
 
 describe("Home", () => {
-  it("focuses the visitor on starting the medical career assessment", () => {
+  it("focuses paid users on entering the medical career assessment", () => {
     render(<Home />);
 
     expect(
@@ -14,8 +14,9 @@ describe("Home", () => {
       }),
     ).toBeInTheDocument();
     expect(
-      screen.getByRole("link", { name: "开始 10 分钟职业诊断" }),
+      screen.getByRole("link", { name: "进入职业诊断" }),
     ).toHaveAttribute("href", "/assessment");
+    expect(screen.queryByText(/免费获得/)).not.toBeInTheDocument();
   });
 
   it("sets clear expectations for the assessment outcome", () => {

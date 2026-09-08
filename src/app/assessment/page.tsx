@@ -13,8 +13,8 @@ export default function Assessment() {
         <span className="text-sm font-semibold text-foreground">医途职业诊断</span>
       </header>
       <section className="mx-auto max-w-3xl px-6 pb-20 pt-8 sm:pt-14">
-        <div className="flex items-center justify-between text-sm"><span className="font-medium text-primary-dark">第 1 步，共 5 步</span><span className="text-muted-foreground">约 2 分钟</span></div>
-        <Progress className="mt-4" value={20} aria-label="诊断进度：20%" />
+        <div className="flex items-center justify-between text-sm"><span className="font-medium text-primary-dark">第 1 步，共 4 步</span><span className="text-muted-foreground">约 2 分钟</span></div>
+        <Progress className="mt-4" value={25} aria-label="诊断进度：25%" />
         <div className="mt-14 max-w-2xl">
           <p className="text-sm font-semibold text-primary-dark">先认识一下你</p>
           <h1 className="mt-3 text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">先从你现在所处的阶段开始</h1>
