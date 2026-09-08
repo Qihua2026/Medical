@@ -17,6 +17,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="zh-CN"
+      data-scroll-behavior="smooth"
       className={`${notoSans.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">{children}</body>
