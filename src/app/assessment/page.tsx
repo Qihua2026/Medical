@@ -1,11 +1,17 @@
+"use client";
+
 import Link from "next/link";
 import { ArrowLeft, Lightbulb } from "lucide-react";
+import { useState } from "react";
 
+import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 
 const stages = ["应届生", "往届生", "在职转型", "博士 / 博后", "海归求职", "gap / 短履历"];
 
 export default function Assessment() {
+  const [selectedStage, setSelectedStage] = useState("");
+
   return (
     <main className="min-h-screen bg-background">
       <header className="mx-auto flex max-w-3xl items-center justify-between px-6 py-6">
@@ -24,12 +30,29 @@ export default function Assessment() {
           <legend className="sr-only">当前求职阶段</legend>
           {stages.map((stage) => (
             <label className="group flex min-h-16 cursor-pointer items-center gap-3 rounded-2xl border border-border bg-card px-5 py-4 text-sm font-medium text-foreground shadow-sm transition hover:border-primary/35 hover:bg-primary/5" key={stage}>
-              <input className="size-4 accent-primary" type="radio" name="career-stage" value={stage} />
+              <input
+                checked={selectedStage === stage}
+                className="size-4 accent-primary"
+                name="career-stage"
+                onChange={(event) => setSelectedStage(event.target.value)}
+                type="radio"
+                value={stage}
+              />
               {stage}
             </label>
           ))}
         </fieldset>
         <aside className="mt-8 flex gap-3 rounded-2xl bg-secondary/70 p-4 text-sm leading-6 text-secondary-foreground"><Lightbulb aria-hidden="true" className="mt-0.5 size-4 shrink-0" /><p><strong className="font-semibold">为什么要问：</strong>这会影响岗位门槛与求职节奏，也帮助我们避免给出不切实际的建议。</p></aside>
+        <div className="mt-8 flex justify-end">
+          <Button
+            className="w-full disabled:opacity-100 sm:w-auto sm:min-w-32"
+            disabled={!selectedStage}
+            size="lg"
+            type="button"
+          >
+            确定
+          </Button>
+        </div>
       </section>
     </main>
   );
