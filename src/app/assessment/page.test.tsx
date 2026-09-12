@@ -32,4 +32,23 @@ describe("Assessment", () => {
 
     expect(confirmButton).toBeEnabled();
   });
+
+  it("moves from the career stage question to the work preference question", () => {
+    render(<Assessment />);
+
+    fireEvent.click(screen.getByRole("radio", { name: "在职转型" }));
+    fireEvent.click(screen.getByRole("button", { name: "确定" }));
+
+    expect(screen.getByText("第 2 步，共 4 步")).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", {
+        name: "如果不考虑岗位名称，你更希望怎样工作？",
+      }),
+    ).toBeInTheDocument();
+    expect(screen.getByRole("progressbar")).toHaveAttribute(
+      "aria-valuenow",
+      "50",
+    );
+    expect(screen.getByRole("button", { name: "确定" })).toBeDisabled();
+  });
 });
