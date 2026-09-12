@@ -51,4 +51,53 @@ describe("Assessment", () => {
     );
     expect(screen.getByRole("button", { name: "确定" })).toBeDisabled();
   });
+
+  it("continues through every question and reaches the completion summary", () => {
+    render(<Assessment />);
+
+    fireEvent.click(screen.getByRole("radio", { name: "在职转型" }));
+    fireEvent.click(screen.getByRole("button", { name: "确定" }));
+    fireEvent.click(
+      screen.getByRole("radio", {
+        name: "将科研能力转化为行业价值",
+      }),
+    );
+    fireEvent.click(screen.getByRole("button", { name: "确定" }));
+
+    expect(
+      screen.getByRole("heading", {
+        name: "这次求职，你最需要坚持的底线是什么？",
+      }),
+    ).toBeInTheDocument();
+    expect(screen.getByRole("progressbar")).toHaveAttribute(
+      "aria-valuenow",
+      "75",
+    );
+
+    fireEvent.click(
+      screen.getByRole("radio", { name: "不接受高频出差" }),
+    );
+    fireEvent.click(screen.getByRole("button", { name: "确定" }));
+
+    expect(
+      screen.getByRole("heading", {
+        name: "这次求职，你最希望优先得到什么？",
+      }),
+    ).toBeInTheDocument();
+    expect(screen.getByRole("progressbar")).toHaveAttribute(
+      "aria-valuenow",
+      "100",
+    );
+
+    fireEvent.click(
+      screen.getByRole("radio", { name: "建立长期发展路径" }),
+    );
+    fireEvent.click(screen.getByRole("button", { name: "确定" }));
+
+    expect(
+      screen.getByRole("heading", { name: "你的诊断信息已记录" }),
+    ).toBeInTheDocument();
+    expect(screen.getByText("在职转型")).toBeInTheDocument();
+    expect(screen.getByText("不接受高频出差")).toBeInTheDocument();
+  });
 });
