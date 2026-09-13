@@ -10,11 +10,11 @@ describe("Home", () => {
     expect(
       screen.getByRole("heading", {
         level: 1,
-        name: /找到更适合你的\s*医药职业方向/,
+        name: /明确适合你的\s*医药职业方向/,
       }),
     ).toBeInTheDocument();
     expect(
-      screen.getByRole("link", { name: "进入职业诊断" }),
+      screen.getByRole("link", { name: "开始职业诊断" }),
     ).toHaveAttribute("href", "/assessment");
     expect(screen.queryByText(/免费获得/)).not.toBeInTheDocument();
   });
@@ -41,7 +41,7 @@ describe("Home", () => {
     render(<Home />);
 
     expect(
-      screen.getByText(/只基于你的真实经历提供判断/),
+      screen.getByText(/诊断仅基于真实经历提供方向判断/),
     ).toBeInTheDocument();
   });
 });

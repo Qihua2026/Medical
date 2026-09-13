@@ -9,10 +9,10 @@ import { Progress } from "@/components/ui/progress";
 
 const questions = [
   {
-    eyebrow: "先认识一下你",
-    title: "先从你现在所处的阶段开始",
+    eyebrow: "当前状态",
+    title: "请选择当前求职阶段",
     description:
-      "不同阶段适合的岗位入口和准备方式并不相同。请选择最接近你当前情况的一项。",
+      "求职阶段将影响可选岗位入口及准备节奏，请选择与当前情况最接近的一项。",
     legend: "当前求职阶段",
     options: [
       "应届生",
@@ -23,55 +23,55 @@ const questions = [
       "gap / 短履历",
     ],
     reason:
-      "你的求职阶段会影响适合的岗位入口，也会影响接下来需要投入的准备时间。",
+      "求职阶段是判断岗位门槛、履历风险与准备周期的基础信息。",
   },
   {
-    eyebrow: "了解你的工作偏好",
-    title: "如果不考虑岗位名称，你更希望怎样工作？",
+    eyebrow: "工作偏好",
+    title: "请选择符合预期的工作方式",
     description:
-      "先选最接近你的工作状态，而不是你觉得更容易入职的岗位。",
+      "请基于长期工作意愿选择，不必考虑当前岗位机会或录用难度。",
     legend: "工作偏好",
     options: [
-      "深入分析专业信息和复杂问题",
-      "与人沟通并影响专业决策",
-      "推进项目、协调团队把事情落地",
+      "分析专业信息与复杂问题",
+      "沟通并影响专业决策",
+      "推进项目与协调团队",
       "将科研能力转化为行业价值",
-      "在稳定流程中持续积累专业能力",
+      "在稳定流程中积累专业能力",
     ],
     reason:
-      "了解你真正喜欢的工作方式，才能判断 MSL、CRA、市场等方向是否适合长期发展。",
+      "工作方式偏好用于评估医学事务、临床运营与市场等方向的长期适配性。",
   },
   {
-    eyebrow: "明确你的现实约束",
-    title: "这次求职，你最需要坚持的底线是什么？",
+    eyebrow: "求职约束",
+    title: "请选择当前不可妥协的求职条件",
     description:
-      "如果有多项都重要，请先选择最不能妥协的一项，后续仍可补充。",
+      "如有多项重要条件，请优先选择当前限制最强的一项。",
     legend: "求职底线",
     options: [
       "不接受高频出差",
-      "不接受纯销售",
-      "不想继续做实验",
-      "城市选择不能妥协",
-      "暂时没有明确底线",
+      "不接受纯销售岗位",
+      "不再从事实验工作",
+      "工作城市不可调整",
+      "暂无明确限制",
     ],
     reason:
-      "先明确最不能妥协的条件，可以帮你避开不合适的方向，减少无效准备和投递。",
+      "硬性约束用于排除明显不适配的岗位方向，减少无效准备与投递。",
   },
   {
-    eyebrow: "确定你的排序标准",
-    title: "这次求职，你最希望优先得到什么？",
+    eyebrow: "求职目标",
+    title: "请选择当前求职的首要目标",
     description:
-      "不同目标会改变岗位与机会的排序，请选择现阶段最重要的一项。",
+      "首要目标将作为多个可行方向之间的排序依据。",
     legend: "优先目标",
     options: [
-      "尽快拿到合适 offer",
-      "进入更好的平台",
-      "获得更有竞争力的薪资",
+      "尽快获得合适 offer",
+      "进入更具发展空间的平台",
+      "提高薪资水平",
       "留在目标城市",
-      "建立长期发展路径",
+      "建立长期职业发展路径",
     ],
     reason:
-      "当多个方向都可行时，你最看重的目标会决定应该先争取哪一类机会。",
+      "首要目标用于确定岗位、平台与机会的优先顺序。",
   },
 ] as const;
 
@@ -123,13 +123,13 @@ export default function Assessment() {
             className="size-12 text-primary"
           />
           <p className="mt-8 text-sm font-semibold text-primary-dark">
-            已完成四项核心问题
+            已完成四项核心信息
           </p>
           <h1 className="mt-3 text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
-            你的求职需求已完成整理
+            核心求职信息已完成整理
           </h1>
           <p className="mt-4 max-w-2xl text-base leading-7 text-muted-foreground">
-            接下来会根据这些选择，为你判断值得优先考虑的岗位方向，并整理具体的求职准备建议。
+            将基于上述信息形成优先职业方向、岗位适配依据与后续准备建议。
           </p>
           <dl className="mt-10 grid gap-3 sm:grid-cols-2">
             {answers.map((answer, index) => (
@@ -183,7 +183,7 @@ function QuestionStep({
         <span className="font-medium text-primary-dark">
           第 {stepNumber} 步，共 4 步
         </span>
-        <span className="text-muted-foreground">约 2 分钟</span>
+        <span className="text-muted-foreground">预计用时 2 分钟</span>
       </div>
       <Progress
         aria-label={`诊断进度：${progress}%`}
@@ -226,7 +226,7 @@ function QuestionStep({
           className="mt-0.5 size-4 shrink-0"
         />
         <p>
-          <strong className="font-semibold">为什么要问：</strong>
+          <strong className="font-semibold">填写说明：</strong>
           {question.reason}
         </p>
       </aside>
@@ -238,7 +238,7 @@ function QuestionStep({
           size="lg"
           type="button"
         >
-          确定
+          确认
         </Button>
       </div>
     </section>

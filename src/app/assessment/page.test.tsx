@@ -9,7 +9,7 @@ describe("Assessment", () => {
 
     expect(screen.getByText("第 1 步，共 4 步")).toBeInTheDocument();
     expect(
-      screen.getByRole("heading", { name: "先从你现在所处的阶段开始" }),
+      screen.getByRole("heading", { name: "请选择当前求职阶段" }),
     ).toBeInTheDocument();
     expect(screen.getAllByRole("radio")).toHaveLength(6);
   });
@@ -18,14 +18,14 @@ describe("Assessment", () => {
     render(<Assessment />);
 
     expect(screen.getByRole("complementary")).toHaveTextContent(
-      "为什么要问",
+      "填写说明",
     );
   });
 
   it("keeps the confirmation visually primary while disabling it until a stage is selected", () => {
     render(<Assessment />);
 
-    const confirmButton = screen.getByRole("button", { name: "确定" });
+    const confirmButton = screen.getByRole("button", { name: "确认" });
 
     expect(confirmButton).toBeDisabled();
     expect(confirmButton).toHaveClass("disabled:opacity-100");
@@ -39,36 +39,36 @@ describe("Assessment", () => {
     render(<Assessment />);
 
     fireEvent.click(screen.getByRole("radio", { name: "在职转型" }));
-    fireEvent.click(screen.getByRole("button", { name: "确定" }));
+    fireEvent.click(screen.getByRole("button", { name: "确认" }));
 
     expect(screen.getByText("第 2 步，共 4 步")).toBeInTheDocument();
     expect(
       screen.getByRole("heading", {
-        name: "如果不考虑岗位名称，你更希望怎样工作？",
+        name: "请选择符合预期的工作方式",
       }),
     ).toBeInTheDocument();
     expect(screen.getByRole("progressbar")).toHaveAttribute(
       "aria-valuenow",
       "50",
     );
-    expect(screen.getByRole("button", { name: "确定" })).toBeDisabled();
+    expect(screen.getByRole("button", { name: "确认" })).toBeDisabled();
   });
 
   it("continues through every question and reaches the completion summary", () => {
     render(<Assessment />);
 
     fireEvent.click(screen.getByRole("radio", { name: "在职转型" }));
-    fireEvent.click(screen.getByRole("button", { name: "确定" }));
+    fireEvent.click(screen.getByRole("button", { name: "确认" }));
     fireEvent.click(
       screen.getByRole("radio", {
         name: "将科研能力转化为行业价值",
       }),
     );
-    fireEvent.click(screen.getByRole("button", { name: "确定" }));
+    fireEvent.click(screen.getByRole("button", { name: "确认" }));
 
     expect(
       screen.getByRole("heading", {
-        name: "这次求职，你最需要坚持的底线是什么？",
+        name: "请选择当前不可妥协的求职条件",
       }),
     ).toBeInTheDocument();
     expect(screen.getByRole("progressbar")).toHaveAttribute(
@@ -79,11 +79,11 @@ describe("Assessment", () => {
     fireEvent.click(
       screen.getByRole("radio", { name: "不接受高频出差" }),
     );
-    fireEvent.click(screen.getByRole("button", { name: "确定" }));
+    fireEvent.click(screen.getByRole("button", { name: "确认" }));
 
     expect(
       screen.getByRole("heading", {
-        name: "这次求职，你最希望优先得到什么？",
+        name: "请选择当前求职的首要目标",
       }),
     ).toBeInTheDocument();
     expect(screen.getByRole("progressbar")).toHaveAttribute(
@@ -92,12 +92,12 @@ describe("Assessment", () => {
     );
 
     fireEvent.click(
-      screen.getByRole("radio", { name: "建立长期发展路径" }),
+      screen.getByRole("radio", { name: "建立长期职业发展路径" }),
     );
-    fireEvent.click(screen.getByRole("button", { name: "确定" }));
+    fireEvent.click(screen.getByRole("button", { name: "确认" }));
 
     expect(
-      screen.getByRole("heading", { name: "你的求职需求已完成整理" }),
+      screen.getByRole("heading", { name: "核心求职信息已完成整理" }),
     ).toBeInTheDocument();
     expect(screen.getByText("在职转型")).toBeInTheDocument();
     expect(screen.getByText("不接受高频出差")).toBeInTheDocument();
