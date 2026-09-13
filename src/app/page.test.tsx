@@ -7,15 +7,19 @@ describe("Home", () => {
   it("focuses paid users on entering the medical career assessment", () => {
     render(<Home />);
 
-    expect(
-      screen.getByRole("heading", {
-        level: 1,
-        name: /明确适合你的\s*医药职业方向/,
-      }),
-    ).toBeInTheDocument();
-    expect(
-      screen.getByRole("link", { name: "开始职业诊断" }),
-    ).toHaveAttribute("href", "/assessment");
+    const heading = screen.getByRole("heading", {
+      level: 1,
+      name: /明确适合你的\s*医药职业方向/,
+    });
+    const primaryAction = screen.getByRole("link", {
+      name: "开始职业诊断",
+    });
+    const timing = screen.getByText("预计用时 5–8 分钟");
+
+    expect(heading.parentElement).toHaveClass("text-center");
+    expect(primaryAction).toHaveAttribute("href", "/assessment");
+    expect(primaryAction.parentElement).toHaveClass("flex-col", "items-center");
+    expect(primaryAction.parentElement).toContainElement(timing);
     expect(screen.queryByText(/免费获得/)).not.toBeInTheDocument();
   });
 

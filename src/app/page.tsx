@@ -48,7 +48,7 @@ export default function Home() {
       </header>
 
       <section className="relative z-10 mx-auto max-w-6xl px-6 pb-24 pt-14 lg:px-8 lg:pb-28 lg:pt-20">
-        <div className="max-w-3xl">
+        <div className="mx-auto max-w-3xl text-center">
           <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-primary/15 bg-primary/8 px-4 py-2 text-sm font-medium text-primary-dark">
             <Sparkles aria-hidden="true" className="size-4" />
             医药行业职业方向诊断
@@ -57,7 +57,7 @@ export default function Home() {
             明确适合你的
             <span className="block text-primary">医药职业方向</span>
           </h1>
-          <p className="mt-7 max-w-2xl text-pretty text-lg leading-8 text-muted-foreground">
+          <p className="mx-auto mt-7 max-w-2xl text-pretty text-lg leading-8 text-muted-foreground">
             基于教育背景、职业经历、工作偏好与现实限制，形成有依据的职业和岗位方向判断。
           </p>
         </div>
@@ -85,7 +85,7 @@ export default function Home() {
           ))}
         </ul>
 
-        <div className="mt-9 flex flex-col items-start gap-4 sm:flex-row sm:items-center">
+        <div className="mt-9 flex flex-col items-center gap-2 text-center">
           <Button asChild size="lg">
             <Link href="/assessment">
               开始职业诊断
