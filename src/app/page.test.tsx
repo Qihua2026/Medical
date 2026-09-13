@@ -27,14 +27,14 @@ describe("Home", () => {
     ).not.toBeInTheDocument();
   });
 
-  it("sets clear expectations for the assessment outcome", () => {
+  it("does not repeat outcome labels below the primary action", () => {
     render(<Home />);
 
-    const outcomeList = screen.getByRole("list", {
-      name: "诊断结果包括",
-    });
-
-    expect(within(outcomeList).getAllByRole("listitem")).toHaveLength(3);
+    expect(
+      screen.queryByRole("list", { name: "诊断结果包括" }),
+    ).not.toBeInTheDocument();
+    expect(screen.queryByText("优先岗位方向")).not.toBeInTheDocument();
+    expect(screen.queryByText("备选职业方向")).not.toBeInTheDocument();
     expect(screen.queryByText(/两周/)).not.toBeInTheDocument();
   });
 

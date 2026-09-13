@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, Check, HeartPulse, Sparkles } from "lucide-react";
+import { ArrowRight, HeartPulse, Sparkles } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -22,8 +22,6 @@ const steps = [
     description: "围绕简历、面试与能力准备，形成可执行的行动方案。",
   },
 ];
-
-const outcomes = ["优先岗位方向", "备选职业方向", "行动方案"];
 
 export default function Home() {
   return (
@@ -97,19 +95,6 @@ export default function Home() {
           <span className="text-sm text-muted-foreground">预计用时 5–8 分钟</span>
         </div>
 
-        <ul
-          className="mt-8 grid gap-3 text-sm text-foreground/80 sm:grid-cols-3"
-          aria-label="诊断结果包括"
-        >
-          {outcomes.map((outcome) => (
-            <li className="flex items-center gap-2" key={outcome}>
-              <span className="grid size-5 shrink-0 place-items-center rounded-full bg-primary/12 text-primary-dark">
-                <Check aria-hidden="true" className="size-3" strokeWidth={3} />
-              </span>
-              {outcome}
-            </li>
-          ))}
-        </ul>
       </section>
     </main>
   );
