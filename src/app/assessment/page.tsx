@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowLeft, CheckCircle2, Lightbulb } from "lucide-react";
+import { ArrowLeft, CheckCircle2, HeartPulse, Lightbulb } from "lucide-react";
 import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
@@ -111,9 +111,23 @@ export default function Assessment() {
           <ArrowLeft aria-hidden="true" className="size-4" />
           返回首页
         </Link>
-        <span className="text-sm font-semibold text-foreground">
-          医途职业诊断
-        </span>
+        <Link className="flex items-center gap-2" href="/" aria-label="医途首页">
+          <span className="grid size-9 place-items-center rounded-xl bg-primary text-primary-foreground shadow-sm">
+            <HeartPulse
+              aria-hidden="true"
+              className="size-4"
+              strokeWidth={2.2}
+            />
+          </span>
+          <span>
+            <span className="block text-sm font-semibold tracking-tight text-foreground">
+              医途
+            </span>
+            <span className="block text-[9px] tracking-[0.16em] text-muted-foreground">
+              MEDICAL CAREER
+            </span>
+          </span>
+        </Link>
       </header>
 
       {isComplete ? (

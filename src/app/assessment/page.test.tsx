@@ -7,6 +7,10 @@ describe("Assessment", () => {
   it("starts with one focused identity question", () => {
     render(<Assessment />);
 
+    expect(
+      screen.getByRole("link", { name: "医途首页" }),
+    ).toHaveAttribute("href", "/");
+    expect(screen.queryByText("医途职业诊断")).not.toBeInTheDocument();
     expect(screen.getByText("第 1 步，共 4 步")).toBeInTheDocument();
     expect(
       screen.getByRole("heading", { name: "请选择当前求职阶段" }),
