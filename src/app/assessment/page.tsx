@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowLeft, CheckCircle2, HeartPulse, Lightbulb } from "lucide-react";
+import { ArrowLeft, CheckCircle2, HeartPulse } from "lucide-react";
 import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
@@ -9,7 +9,7 @@ import { Progress } from "@/components/ui/progress";
 
 const questions = [
   {
-    eyebrow: "当前状态",
+    eyebrow: null,
     title: "请选择当前求职阶段",
     description:
       "求职阶段将影响可选岗位入口及准备节奏，请选择与当前情况最接近的一项。",
@@ -111,19 +111,19 @@ export default function Assessment() {
           <ArrowLeft aria-hidden="true" className="size-4" />
           返回首页
         </Link>
-        <Link className="flex items-center gap-2" href="/" aria-label="医途首页">
-          <span className="grid size-9 place-items-center rounded-xl bg-primary text-primary-foreground shadow-sm">
+        <Link className="flex items-center gap-[5px]" href="/" aria-label="医途首页">
+          <span className="grid size-[25px] place-items-center rounded-[9px] bg-primary text-primary-foreground shadow-sm">
             <HeartPulse
               aria-hidden="true"
-              className="size-4"
+              className="size-3"
               strokeWidth={2.2}
             />
           </span>
           <span>
-            <span className="block text-sm font-semibold tracking-tight text-foreground">
+            <span className="block text-[10px] font-semibold leading-3 tracking-tight text-foreground">
               医途
             </span>
-            <span className="block text-[9px] tracking-[0.16em] text-muted-foreground">
+            <span className="block text-[7px] leading-3 tracking-[0.12em] text-muted-foreground">
               MEDICAL CAREER
             </span>
           </span>
@@ -205,14 +205,25 @@ function QuestionStep({
         value={progress}
       />
       <div className="mt-14 max-w-2xl">
-        <p className="text-sm font-semibold text-primary-dark">
-          {question.eyebrow}
-        </p>
-        <h1 className="mt-3 text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
+        {question.eyebrow ? (
+          <p className="text-sm font-semibold text-primary-dark">
+            {question.eyebrow}
+          </p>
+        ) : null}
+        <h1
+          className={`${question.eyebrow ? "mt-3 " : ""}text-3xl font-semibold tracking-tight text-foreground sm:text-4xl`}
+        >
           {question.title}
         </h1>
-        <p className="mt-4 text-base leading-7 text-muted-foreground">
+        <p
+          aria-label="问题说明"
+          className="mt-4 text-base leading-7 text-muted-foreground"
+          role="note"
+        >
           {question.description}
+          <span className="ml-2 text-sm text-muted-foreground/80">
+            {question.reason}
+          </span>
         </p>
       </div>
       <fieldset className="mt-10 grid gap-3 sm:grid-cols-2">
@@ -234,19 +245,9 @@ function QuestionStep({
           </label>
         ))}
       </fieldset>
-      <aside className="mt-8 flex gap-3 rounded-2xl bg-secondary/70 p-4 text-sm leading-6 text-secondary-foreground">
-        <Lightbulb
-          aria-hidden="true"
-          className="mt-0.5 size-4 shrink-0"
-        />
-        <p>
-          <strong className="font-semibold">填写说明：</strong>
-          {question.reason}
-        </p>
-      </aside>
-      <div className="mt-8 flex justify-end">
+      <div className="mt-8 grid gap-3 sm:grid-cols-2">
         <Button
-          className="w-full disabled:opacity-100 sm:w-auto sm:min-w-32"
+          className="w-full disabled:opacity-100 sm:col-start-2"
           disabled={!answer}
           onClick={onConfirm}
           size="lg"

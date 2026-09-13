@@ -7,10 +7,12 @@ describe("Assessment", () => {
   it("starts with one focused identity question", () => {
     render(<Assessment />);
 
-    expect(
-      screen.getByRole("link", { name: "医途首页" }),
-    ).toHaveAttribute("href", "/");
+    const logo = screen.getByRole("link", { name: "医途首页" });
+
+    expect(logo).toHaveAttribute("href", "/");
+    expect(logo.firstElementChild).toHaveClass("size-[25px]");
     expect(screen.queryByText("医途职业诊断")).not.toBeInTheDocument();
+    expect(screen.queryByText("当前状态")).not.toBeInTheDocument();
     expect(screen.getByText("第 1 步，共 4 步")).toBeInTheDocument();
     expect(
       screen.getByRole("heading", { name: "请选择当前求职阶段" }),
@@ -18,12 +20,15 @@ describe("Assessment", () => {
     expect(screen.getAllByRole("radio")).toHaveLength(6);
   });
 
-  it("explains why the advisor asks the question", () => {
+  it("places the diagnostic rationale directly after the supporting copy", () => {
     render(<Assessment />);
 
-    expect(screen.getByRole("complementary")).toHaveTextContent(
-      "填写说明",
+    const guidance = screen.getByRole("note", { name: "问题说明" });
+
+    expect(guidance).toHaveTextContent(
+      "求职阶段将影响可选岗位入口及准备节奏，请选择与当前情况最接近的一项。求职阶段是判断岗位门槛、履历风险与准备周期的基础信息。",
     );
+    expect(screen.queryByRole("complementary")).not.toBeInTheDocument();
   });
 
   it("keeps the confirmation visually primary while disabling it until a stage is selected", () => {
@@ -32,7 +37,15 @@ describe("Assessment", () => {
     const confirmButton = screen.getByRole("button", { name: "确认" });
 
     expect(confirmButton).toBeDisabled();
-    expect(confirmButton).toHaveClass("disabled:opacity-100");
+    expect(confirmButton).toHaveClass(
+      "w-full",
+      "disabled:opacity-100",
+      "sm:col-start-2",
+    );
+    expect(confirmButton.parentElement).toHaveClass(
+      "grid",
+      "sm:grid-cols-2",
+    );
 
     fireEvent.click(screen.getByRole("radio", { name: "博士 / 博后" }));
 
