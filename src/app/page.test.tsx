@@ -38,6 +38,33 @@ describe("Home", () => {
     expect(screen.queryByText(/两周/)).not.toBeInTheDocument();
   });
 
+  it("places three responsive diagnostic step cards before the primary action", () => {
+    render(<Home />);
+
+    const stepList = screen.getByRole("list", { name: "职业诊断步骤" });
+    const primaryAction = screen.getByRole("link", {
+      name: "开始职业诊断",
+    });
+
+    expect(within(stepList).getAllByRole("listitem")).toHaveLength(3);
+    expect(stepList).toHaveClass("grid-cols-3");
+    expect(
+      stepList.compareDocumentPosition(primaryAction) &
+        Node.DOCUMENT_POSITION_FOLLOWING,
+    ).toBeTruthy();
+  });
+
+  it("removes the example card and secondary process introduction", () => {
+    render(<Home />);
+
+    expect(screen.queryByText("诊断示例")).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole("heading", {
+        name: "从个人信息分析到求职行动方案",
+      }),
+    ).not.toBeInTheDocument();
+  });
+
   it("keeps the process section focused on the three diagnostic steps", () => {
     render(<Home />);
 
