@@ -51,7 +51,12 @@ describe("Home", () => {
     });
 
     expect(within(stepList).getAllByRole("listitem")).toHaveLength(3);
-    expect(stepList).toHaveClass("grid-cols-3");
+    expect(stepList).toHaveClass("grid-cols-3", "max-w-4xl");
+    within(stepList)
+      .getAllByRole("listitem")
+      .forEach((item) => {
+        expect(item.firstElementChild).toHaveClass("py-0");
+      });
     expect(
       stepList.compareDocumentPosition(primaryAction) &
         Node.DOCUMENT_POSITION_FOLLOWING,

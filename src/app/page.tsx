@@ -64,19 +64,19 @@ export default function Home() {
 
         <ul
           aria-label="职业诊断步骤"
-          className="mt-10 grid grid-cols-3 gap-2 sm:gap-4 lg:gap-5"
+          className="mx-auto mt-9 grid w-full max-w-4xl grid-cols-3 gap-2 sm:w-[92%] sm:gap-3 lg:gap-4"
         >
           {steps.map((step) => (
             <li className="min-w-0" key={step.number}>
-              <Card className="h-full bg-card/85">
-                <CardContent className="p-3 sm:p-5 lg:p-6">
+              <Card className="h-full gap-0 rounded-2xl bg-card/85 py-0">
+                <CardContent className="p-3 sm:p-4">
                   <span className="text-[10px] font-semibold tracking-[0.14em] text-primary sm:text-xs sm:tracking-[0.16em]">
                     {step.number}
                   </span>
-                  <h2 className="mt-3 break-words text-xs font-semibold leading-5 text-foreground sm:mt-5 sm:text-base sm:leading-6 lg:text-lg">
+                  <h2 className="mt-3 break-words text-xs font-semibold leading-5 text-foreground sm:text-sm sm:leading-6 lg:text-base">
                     {step.title}
                   </h2>
-                  <p className="mt-2 break-words text-[11px] leading-5 text-muted-foreground sm:text-sm sm:leading-6">
+                  <p className="mt-1.5 break-words text-[11px] leading-5 text-muted-foreground sm:text-xs sm:leading-5 lg:text-sm lg:leading-6">
                     {step.description}
                   </p>
                 </CardContent>
