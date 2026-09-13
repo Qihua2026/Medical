@@ -70,12 +70,14 @@ export default function Home() {
             <li className="min-w-0" key={step.number}>
               <Card className="h-full gap-0 rounded-2xl bg-card/85 py-0">
                 <CardContent className="p-3 sm:p-4">
-                  <span className="text-[10px] font-semibold tracking-[0.14em] text-primary sm:text-xs sm:tracking-[0.16em]">
-                    {step.number}
-                  </span>
-                  <h2 className="mt-3 break-words text-xs font-semibold leading-5 text-foreground sm:text-sm sm:leading-6 lg:text-base">
-                    {step.title}
-                  </h2>
+                  <div className="flex items-baseline gap-2 sm:gap-3">
+                    <span className="shrink-0 text-[10px] font-semibold tracking-[0.14em] text-primary sm:text-xs sm:tracking-[0.16em]">
+                      {step.number}
+                    </span>
+                    <h2 className="break-words text-xs font-semibold leading-5 text-foreground sm:text-sm sm:leading-6 lg:text-base">
+                      {step.title}
+                    </h2>
+                  </div>
                   <p className="mt-1.5 break-words text-[11px] leading-5 text-muted-foreground sm:text-xs sm:leading-5 lg:text-sm lg:leading-6">
                     {step.description}
                   </p>

@@ -66,6 +66,16 @@ describe("Home", () => {
       .forEach((item) => {
         expect(item.firstElementChild).toHaveClass("py-0");
       });
+    [
+      "个人背景与求职需求分析",
+      "职业和岗位方向判断",
+      "求职行动方案制定",
+    ].forEach((title) => {
+      expect(screen.getByRole("heading", { name: title }).parentElement).toHaveClass(
+        "flex",
+        "items-baseline",
+      );
+    });
     expect(
       stepList.compareDocumentPosition(primaryAction) &
         Node.DOCUMENT_POSITION_FOLLOWING,
