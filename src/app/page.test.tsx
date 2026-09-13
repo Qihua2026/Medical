@@ -29,6 +29,7 @@ describe("Home", () => {
       "max-w-4xl",
     );
     expect(primaryAction.parentElement).toContainElement(timing);
+    expect(timing).toHaveClass("text-xs");
     expect(screen.queryByText(/免费获得/)).not.toBeInTheDocument();
   });
 

@@ -95,7 +95,7 @@ export default function Home() {
                 <ArrowRight aria-hidden="true" className="size-4" />
               </Link>
             </Button>
-            <span className="text-sm text-muted-foreground">
+            <span className="text-xs text-muted-foreground">
               预计用时 5–8 分钟
             </span>
           </div>
