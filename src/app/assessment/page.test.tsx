@@ -17,7 +17,9 @@ describe("Assessment", () => {
   it("explains why the advisor asks the question", () => {
     render(<Assessment />);
 
-    expect(screen.getByText(/这会影响岗位门槛与求职节奏/)).toBeInTheDocument();
+    expect(screen.getByRole("complementary")).toHaveTextContent(
+      "为什么要问",
+    );
   });
 
   it("keeps the confirmation visually primary while disabling it until a stage is selected", () => {
@@ -95,7 +97,7 @@ describe("Assessment", () => {
     fireEvent.click(screen.getByRole("button", { name: "确定" }));
 
     expect(
-      screen.getByRole("heading", { name: "你的诊断信息已记录" }),
+      screen.getByRole("heading", { name: "你的求职需求已完成整理" }),
     ).toBeInTheDocument();
     expect(screen.getByText("在职转型")).toBeInTheDocument();
     expect(screen.getByText("不接受高频出差")).toBeInTheDocument();

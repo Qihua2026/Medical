@@ -23,7 +23,7 @@ const questions = [
       "gap / 短履历",
     ],
     reason:
-      "这会影响岗位门槛与求职节奏，也帮助我们避免给出不切实际的建议。",
+      "你的求职阶段会影响适合的岗位入口，也会影响接下来需要投入的准备时间。",
   },
   {
     eyebrow: "了解你的工作偏好",
@@ -38,7 +38,8 @@ const questions = [
       "将科研能力转化为行业价值",
       "在稳定流程中持续积累专业能力",
     ],
-    reason: "真实的工作偏好会改变 MSL、CRA 与市场等方向的优先级。",
+    reason:
+      "了解你真正喜欢的工作方式，才能判断 MSL、CRA、市场等方向是否适合长期发展。",
   },
   {
     eyebrow: "明确你的现实约束",
@@ -53,7 +54,8 @@ const questions = [
       "城市选择不能妥协",
       "暂时没有明确底线",
     ],
-    reason: "明确硬约束能先排除不合适的方向，减少无效准备和投递。",
+    reason:
+      "先明确最不能妥协的条件，可以帮你避开不合适的方向，减少无效准备和投递。",
   },
   {
     eyebrow: "确定你的排序标准",
@@ -68,7 +70,8 @@ const questions = [
       "留在目标城市",
       "建立长期发展路径",
     ],
-    reason: "优先目标帮助我们在多个可行方向之间做出更符合现实的取舍。",
+    reason:
+      "当多个方向都可行时，你最看重的目标会决定应该先争取哪一类机会。",
   },
 ] as const;
 
@@ -120,13 +123,13 @@ export default function Assessment() {
             className="size-12 text-primary"
           />
           <p className="mt-8 text-sm font-semibold text-primary-dark">
-            四步信息采集完成
+            已完成四项核心问题
           </p>
           <h1 className="mt-3 text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
-            你的诊断信息已记录
+            你的求职需求已完成整理
           </h1>
           <p className="mt-4 max-w-2xl text-base leading-7 text-muted-foreground">
-            接下来会基于你的真实选择整理岗位方向、匹配依据与行动建议。
+            接下来会根据这些选择，为你判断值得优先考虑的岗位方向，并整理具体的求职准备建议。
           </p>
           <dl className="mt-10 grid gap-3 sm:grid-cols-2">
             {answers.map((answer, index) => (

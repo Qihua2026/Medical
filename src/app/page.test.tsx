@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 
 import Home from "./page";
@@ -19,12 +19,22 @@ describe("Home", () => {
     expect(screen.queryByText(/免费获得/)).not.toBeInTheDocument();
   });
 
+  it("does not distract users with a secondary header action", () => {
+    render(<Home />);
+
+    expect(
+      screen.queryByRole("link", { name: "了解诊断方式" }),
+    ).not.toBeInTheDocument();
+  });
+
   it("sets clear expectations for the assessment outcome", () => {
     render(<Home />);
 
-    expect(screen.getByText("1 条主线岗位")).toBeInTheDocument();
-    expect(screen.getByText("1 条备选方向")).toBeInTheDocument();
-    expect(screen.getByText("未来 2 周行动建议")).toBeInTheDocument();
+    const outcomeList = screen.getByRole("list", {
+      name: "诊断结果包括",
+    });
+
+    expect(within(outcomeList).getAllByRole("listitem")).toHaveLength(3);
   });
 
   it("states the truthful career guidance boundary", () => {
