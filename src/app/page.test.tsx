@@ -15,8 +15,12 @@ describe("Home", () => {
       name: "开始职业诊断",
     });
     const timing = screen.getByText("预计用时 5–8 分钟");
+    const supportingCopy = screen.getByText(
+      "基于教育背景、职业经历、工作偏好与现实限制，形成有依据的职业和岗位方向判断。",
+    );
 
     expect(heading.parentElement).toHaveClass("text-center");
+    expect(supportingCopy).toHaveClass("max-w-4xl", "sm:w-[92%]");
     expect(primaryAction).toHaveAttribute("href", "/assessment");
     expect(primaryAction).toHaveClass("w-full");
     expect(primaryAction.parentElement).toHaveClass(
