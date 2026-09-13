@@ -7,7 +7,7 @@ import { Card, CardContent } from "@/components/ui/card";
 const outcomes = [
   "优先岗位方向",
   "备选职业方向",
-  "两周行动方案",
+  "行动方案",
 ];
 
 export default function Home() {
@@ -54,9 +54,8 @@ export default function Home() {
         <div className="mx-auto max-w-6xl px-6 py-20 lg:px-8">
           <div className="max-w-2xl"><p className="text-sm font-semibold text-primary-dark">职业诊断内容</p><h2 className="mt-3 text-3xl font-semibold tracking-tight text-foreground">从个人信息分析到求职行动方案</h2><p className="mt-4 leading-7 text-muted-foreground">诊断将综合专业背景、职业经历、工作偏好与现实限制，形成职业方向、岗位判断与准备建议。</p></div>
           <div className="mt-12 grid gap-5 md:grid-cols-3">
-            {[["01", "个人背景与求职需求分析", "综合分析教育经历、工作偏好与现实限制，明确职业选择的关键条件。"], ["02", "职业和岗位方向判断", "结合个人情况评估岗位适配性，说明判断依据与潜在风险。"], ["03", "求职行动方案制定", "围绕简历、面试与能力准备，形成未来两周可执行的行动方案。"]].map(([number, title, description]) => <Card key={number} className="bg-background/85"><CardContent className="p-6"><span className="text-xs font-semibold tracking-[0.16em] text-primary">{number}</span><h3 className="mt-5 text-lg font-semibold text-foreground">{title}</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">{description}</p></CardContent></Card>)}
+            {[["01", "个人背景与求职需求分析", "综合分析教育经历、工作偏好与现实限制，明确职业选择的关键条件。"], ["02", "职业和岗位方向判断", "结合个人情况评估岗位适配性，说明判断依据与潜在风险。"], ["03", "求职行动方案制定", "围绕简历、面试与能力准备，形成可执行的行动方案。"]].map(([number, title, description]) => <Card key={number} className="bg-background/85"><CardContent className="p-6"><span className="text-xs font-semibold tracking-[0.16em] text-primary">{number}</span><h3 className="mt-5 text-lg font-semibold text-foreground">{title}</h3><p className="mt-2 text-sm leading-6 text-muted-foreground">{description}</p></CardContent></Card>)}
           </div>
-          <p className="mt-10 flex items-start gap-2 text-sm leading-6 text-muted-foreground"><ShieldCheck aria-hidden="true" className="mt-0.5 size-4 shrink-0 text-primary" />诊断仅基于真实经历提供方向判断与表达建议；不虚构经历，不承诺 offer、薪资或录用概率。</p>
         </div>
       </section>
     </main>

@@ -35,13 +35,14 @@ describe("Home", () => {
     });
 
     expect(within(outcomeList).getAllByRole("listitem")).toHaveLength(3);
+    expect(screen.queryByText(/两周/)).not.toBeInTheDocument();
   });
 
-  it("states the truthful career guidance boundary", () => {
+  it("keeps the process section focused on the three diagnostic steps", () => {
     render(<Home />);
 
     expect(
-      screen.getByText(/诊断仅基于真实经历提供方向判断/),
-    ).toBeInTheDocument();
+      screen.queryByText(/诊断仅基于真实经历提供方向判断/),
+    ).not.toBeInTheDocument();
   });
 });
