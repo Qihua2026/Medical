@@ -18,7 +18,16 @@ describe("Home", () => {
 
     expect(heading.parentElement).toHaveClass("text-center");
     expect(primaryAction).toHaveAttribute("href", "/assessment");
-    expect(primaryAction.parentElement).toHaveClass("flex-col", "items-center");
+    expect(primaryAction).toHaveClass("w-full");
+    expect(primaryAction.parentElement).toHaveClass(
+      "col-start-2",
+      "flex-col",
+      "items-center",
+    );
+    expect(primaryAction.parentElement?.parentElement).toHaveClass(
+      "grid-cols-3",
+      "max-w-4xl",
+    );
     expect(primaryAction.parentElement).toContainElement(timing);
     expect(screen.queryByText(/免费获得/)).not.toBeInTheDocument();
   });

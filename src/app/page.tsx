@@ -85,14 +85,18 @@ export default function Home() {
           ))}
         </ul>
 
-        <div className="mt-9 flex flex-col items-center gap-2 text-center">
-          <Button asChild size="lg">
-            <Link href="/assessment">
-              开始职业诊断
-              <ArrowRight aria-hidden="true" className="size-4" />
-            </Link>
-          </Button>
-          <span className="text-sm text-muted-foreground">预计用时 5–8 分钟</span>
+        <div className="mx-auto mt-9 grid w-full max-w-4xl grid-cols-3 gap-2 sm:w-[92%] sm:gap-3 lg:gap-4">
+          <div className="col-start-2 flex flex-col items-center gap-2 text-center">
+            <Button asChild className="w-full" size="lg">
+              <Link href="/assessment">
+                开始职业诊断
+                <ArrowRight aria-hidden="true" className="size-4" />
+              </Link>
+            </Button>
+            <span className="text-sm text-muted-foreground">
+              预计用时 5–8 分钟
+            </span>
+          </div>
         </div>
 
       </section>
