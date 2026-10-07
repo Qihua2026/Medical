@@ -16,6 +16,7 @@
 # next.js
 /.next/
 /out/
+/Medical-Career-Demo.zip
 
 # production
 /build
