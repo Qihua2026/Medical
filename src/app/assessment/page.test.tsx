@@ -40,9 +40,12 @@ describe("Assessment", () => {
     expect(confirmButton).toHaveClass(
       "w-full",
       "disabled:opacity-100",
-      "sm:col-start-2",
     );
     expect(confirmButton.parentElement).toHaveClass(
+      "relative",
+      "sm:col-start-2",
+    );
+    expect(confirmButton.parentElement?.parentElement).toHaveClass(
       "grid",
       "sm:grid-cols-2",
     );
@@ -50,6 +53,23 @@ describe("Assessment", () => {
     fireEvent.click(screen.getByRole("radio", { name: "博士 / 博后" }));
 
     expect(confirmButton).toBeEnabled();
+  });
+
+  it("shows a selection prompt only while confirmation is disabled", () => {
+    render(<Assessment />);
+
+    const confirmButton = screen.getByRole("button", { name: "确认" });
+
+    expect(confirmButton).toHaveAttribute(
+      "aria-describedby",
+      "confirm-disabled-hint",
+    );
+    expect(screen.getByRole("tooltip")).toHaveTextContent("请先选择选项");
+
+    fireEvent.click(screen.getByRole("radio", { name: "应届生" }));
+
+    expect(confirmButton).not.toHaveAttribute("aria-describedby");
+    expect(screen.queryByRole("tooltip")).not.toBeInTheDocument();
   });
 
   it("moves from the career stage question to the work preference question", () => {

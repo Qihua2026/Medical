@@ -246,15 +246,27 @@ function QuestionStep({
         ))}
       </fieldset>
       <div className="mt-8 grid gap-3 sm:grid-cols-2">
-        <Button
-          className="w-full disabled:opacity-100 sm:col-start-2"
-          disabled={!answer}
-          onClick={onConfirm}
-          size="lg"
-          type="button"
-        >
-          确认
-        </Button>
+        <span className="group relative sm:col-start-2">
+          <Button
+            aria-describedby={!answer ? "confirm-disabled-hint" : undefined}
+            className="w-full disabled:opacity-100"
+            disabled={!answer}
+            onClick={onConfirm}
+            size="lg"
+            type="button"
+          >
+            确认
+          </Button>
+          {!answer ? (
+            <span
+              className="pointer-events-none absolute bottom-full left-1/2 z-10 mb-2 -translate-x-1/2 whitespace-nowrap rounded-lg bg-foreground px-3 py-2 text-xs font-medium text-background opacity-0 shadow-md transition-opacity group-hover:opacity-100"
+              id="confirm-disabled-hint"
+              role="tooltip"
+            >
+              请先选择选项
+            </span>
+          ) : null}
+        </span>
       </div>
     </section>
   );
