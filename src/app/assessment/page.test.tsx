@@ -41,7 +41,10 @@ describe("Assessment", () => {
 
     expect(guidance).toHaveClass("text-base");
     expect(rationale).toHaveClass("text-base");
+    expect(guidance).toHaveClass("text-muted-foreground");
+    expect(rationale).toHaveClass("text-muted-foreground");
     expect(rationale).not.toHaveClass("text-sm");
+    expect(rationale).not.toHaveClass("text-muted-foreground/80");
   });
 
   it("shows named milestones and moves the current marker forward", () => {

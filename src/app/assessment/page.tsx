@@ -264,7 +264,7 @@ function QuestionStep({
           role="note"
         >
           {question.description}
-          <span className="ml-2 text-base text-muted-foreground/80">
+          <span className="ml-2 text-base text-muted-foreground">
             {question.reason}
           </span>
         </p>
