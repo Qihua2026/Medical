@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, within } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 
 import Assessment from "./page";
@@ -29,6 +29,46 @@ describe("Assessment", () => {
       "求职阶段将影响可选岗位入口及准备节奏，请选择与当前情况最接近的一项。求职阶段是判断岗位门槛、履历风险与准备周期的基础信息。",
     );
     expect(screen.queryByRole("complementary")).not.toBeInTheDocument();
+  });
+
+  it("uses the same type size for supporting copy and its rationale", () => {
+    render(<Assessment />);
+
+    const guidance = screen.getByRole("note", { name: "问题说明" });
+    const rationale = screen.getByText(
+      "求职阶段是判断岗位门槛、履历风险与准备周期的基础信息。",
+    );
+
+    expect(guidance).toHaveClass("text-base");
+    expect(rationale).toHaveClass("text-base");
+    expect(rationale).not.toHaveClass("text-sm");
+  });
+
+  it("shows named milestones and moves the current marker forward", () => {
+    render(<Assessment />);
+
+    const milestones = screen.getByRole("list", { name: "诊断步骤" });
+
+    expect(within(milestones).getAllByRole("listitem")).toHaveLength(4);
+    expect(within(milestones).getByText("求职阶段").closest("li")).toHaveAttribute(
+      "aria-current",
+      "step",
+    );
+    expect(within(milestones).getByText("工作偏好")).toBeInTheDocument();
+    expect(within(milestones).getByText("求职底线")).toBeInTheDocument();
+    expect(within(milestones).getByText("优先目标")).toBeInTheDocument();
+
+    fireEvent.click(screen.getByRole("radio", { name: "应届生" }));
+    fireEvent.click(screen.getByRole("button", { name: "确认" }));
+
+    expect(within(milestones).getByText("求职阶段").closest("li")).toHaveAttribute(
+      "data-state",
+      "complete",
+    );
+    expect(within(milestones).getByText("工作偏好").closest("li")).toHaveAttribute(
+      "aria-current",
+      "step",
+    );
   });
 
   it("stacks every option vertically and keeps confirmation full width", () => {

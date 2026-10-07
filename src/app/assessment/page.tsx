@@ -1,11 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowLeft, CheckCircle2, HeartPulse } from "lucide-react";
+import { ArrowLeft, Check, CheckCircle2, HeartPulse } from "lucide-react";
 import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
-import { Progress } from "@/components/ui/progress";
 
 const questions = [
   {
@@ -199,11 +198,55 @@ function QuestionStep({
         </span>
         <span className="text-muted-foreground">预计用时 2 分钟</span>
       </div>
-      <Progress
+      <div
         aria-label={`诊断进度：${progress}%`}
-        className="mt-4"
-        value={progress}
+        aria-valuemax={100}
+        aria-valuemin={0}
+        aria-valuenow={progress}
+        className="sr-only"
+        role="progressbar"
       />
+      <ol aria-label="诊断步骤" className="mt-6 grid grid-cols-4">
+        {answerLabels.map((label, index) => {
+          const state =
+            index < currentStep
+              ? "complete"
+              : index === currentStep
+                ? "current"
+                : "pending";
+
+          return (
+            <li
+              aria-current={state === "current" ? "step" : undefined}
+              className="relative flex min-w-0 flex-col items-center text-center"
+              data-state={state}
+              key={label}
+            >
+              {index > 0 ? (
+                <span
+                  aria-hidden="true"
+                  className={`absolute -left-1/2 top-3 h-px w-full ${index <= currentStep ? "bg-primary" : "bg-border"}`}
+                />
+              ) : null}
+              <span
+                aria-hidden="true"
+                className={`relative z-10 grid size-6 place-items-center rounded-full border text-[11px] font-semibold ${state === "pending" ? "border-border bg-background text-muted-foreground" : "border-primary bg-primary text-primary-foreground"}`}
+              >
+                {state === "complete" ? (
+                  <Check className="size-3.5" strokeWidth={2.5} />
+                ) : (
+                  index + 1
+                )}
+              </span>
+              <span
+                className={`mt-2 truncate text-xs ${state === "current" ? "font-semibold text-foreground" : state === "complete" ? "font-medium text-primary-dark" : "text-muted-foreground"}`}
+              >
+                {label}
+              </span>
+            </li>
+          );
+        })}
+      </ol>
       <div className="mt-14 max-w-2xl">
         {question.eyebrow ? (
           <p className="text-sm font-semibold text-primary-dark">
@@ -221,7 +264,7 @@ function QuestionStep({
           role="note"
         >
           {question.description}
-          <span className="ml-2 text-sm text-muted-foreground/80">
+          <span className="ml-2 text-base text-muted-foreground/80">
             {question.reason}
           </span>
         </p>
