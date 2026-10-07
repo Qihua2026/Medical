@@ -226,7 +226,7 @@ function QuestionStep({
   return (
     <section className="mx-auto max-w-3xl px-6 pb-20 pt-8 sm:pt-14">
       <div className="flex justify-end text-sm">
-        <span className="text-muted-foreground">预计用时 2 分钟</span>
+        <span className="text-muted-foreground">预计总用时 2 分钟</span>
       </div>
       <div
         aria-label={`诊断进度：${progress}%`}
