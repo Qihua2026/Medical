@@ -44,7 +44,7 @@ const questions = [
     eyebrow: "求职约束",
     title: "请选择当前不可妥协的求职条件",
     description:
-      "如有多项重要条件，请优先选择当前限制最强的一项。",
+      "如有多项重要条件，可同时选择。",
     legend: "求职底线",
     options: [
       "不接受高频出差",
@@ -75,20 +75,48 @@ const questions = [
 ] as const;
 
 const answerLabels = ["求职阶段", "工作偏好", "求职底线", "优先目标"];
+const MULTI_SELECT_STEP = 2;
+const NO_CONSTRAINT_OPTION = "暂无明确限制";
+
+type Answer = string | string[];
 
 export default function Assessment() {
   const [currentStep, setCurrentStep] = useState(0);
-  const [answers, setAnswers] = useState<string[]>(() =>
-    questions.map(() => ""),
+  const [answers, setAnswers] = useState<Answer[]>(() =>
+    questions.map((_, index) => (index === MULTI_SELECT_STEP ? [] : "")),
   );
   const [isComplete, setIsComplete] = useState(false);
 
   function selectOption(value: string) {
-    setAnswers((currentAnswers) =>
-      currentAnswers.map((answer, index) =>
-        index === currentStep ? value : answer,
-      ),
-    );
+    setAnswers((currentAnswers) => {
+      const updatedAnswers = [...currentAnswers];
+
+      if (currentStep === MULTI_SELECT_STEP) {
+        const selectedValues = Array.isArray(updatedAnswers[currentStep])
+          ? updatedAnswers[currentStep]
+          : [];
+
+        if (value === NO_CONSTRAINT_OPTION) {
+          updatedAnswers[currentStep] = selectedValues.includes(value)
+            ? []
+            : [value];
+        } else {
+          const valuesWithoutNoConstraint = selectedValues.filter(
+            (selectedValue) => selectedValue !== NO_CONSTRAINT_OPTION,
+          );
+
+          updatedAnswers[currentStep] = valuesWithoutNoConstraint.includes(value)
+            ? valuesWithoutNoConstraint.filter(
+                (selectedValue) => selectedValue !== value,
+              )
+            : [...valuesWithoutNoConstraint, value];
+        }
+      } else {
+        updatedAnswers[currentStep] = value;
+      }
+
+      return updatedAnswers;
+    });
   }
 
   function confirmAnswer() {
@@ -153,7 +181,9 @@ export default function Assessment() {
                 <dt className="text-sm text-muted-foreground">
                   {answerLabels[index]}
                 </dt>
-                <dd className="mt-2 font-semibold text-foreground">{answer}</dd>
+                <dd className="mt-2 font-semibold text-foreground">
+                  {Array.isArray(answer) ? answer.join("、") : answer}
+                </dd>
               </div>
             ))}
           </dl>
@@ -181,12 +211,15 @@ function QuestionStep({
   onConfirm,
   onSelect,
 }: {
-  answer: string;
+  answer: Answer;
   currentStep: number;
   onConfirm: () => void;
   onSelect: (value: string) => void;
 }) {
   const question = questions[currentStep];
+  const isMultiSelect = currentStep === MULTI_SELECT_STEP;
+  const selectedValues = Array.isArray(answer) ? answer : [answer];
+  const hasAnswer = selectedValues.length > 0 && selectedValues[0] !== "";
   const stepNumber = currentStep + 1;
   const progress = stepNumber * 25;
 
@@ -272,15 +305,15 @@ function QuestionStep({
         <legend className="sr-only">{question.legend}</legend>
         {question.options.map((option) => (
           <label
-            className="group flex min-h-16 w-full cursor-pointer items-center gap-3 rounded-2xl border border-border bg-card px-5 py-4 text-sm font-medium text-foreground shadow-sm transition hover:border-primary/35 hover:bg-primary/5"
+            className={`group flex min-h-16 w-full cursor-pointer items-center gap-3 rounded-2xl border border-border bg-card px-5 py-4 text-sm font-medium text-foreground shadow-sm transition hover:border-primary/35 hover:bg-primary/5 ${selectedValues.includes(option) ? "border-primary/50 bg-primary/5" : ""}`}
             key={option}
           >
             <input
-              checked={answer === option}
+              checked={selectedValues.includes(option)}
               className="size-4 accent-primary"
               name={question.legend}
               onChange={(event) => onSelect(event.target.value)}
-              type="radio"
+              type={isMultiSelect ? "checkbox" : "radio"}
               value={option}
             />
             {option}
@@ -290,16 +323,16 @@ function QuestionStep({
       <div className="mt-8 w-full">
         <span className="group relative block w-full">
           <Button
-            aria-describedby={!answer ? "confirm-disabled-hint" : undefined}
+            aria-describedby={!hasAnswer ? "confirm-disabled-hint" : undefined}
             className="w-full disabled:opacity-100"
-            disabled={!answer}
+            disabled={!hasAnswer}
             onClick={onConfirm}
             size="lg"
             type="button"
           >
             确认
           </Button>
-          {!answer ? (
+          {!hasAnswer ? (
             <span
               className="pointer-events-none absolute bottom-full left-1/2 z-10 mb-2 -translate-x-1/2 whitespace-nowrap rounded-lg bg-foreground px-3 py-2 text-xs font-medium text-background opacity-0 shadow-md transition-opacity group-hover:opacity-100"
               id="confirm-disabled-hint"
