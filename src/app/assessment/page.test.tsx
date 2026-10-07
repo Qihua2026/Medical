@@ -13,7 +13,7 @@ describe("Assessment", () => {
     expect(logo.firstElementChild).toHaveClass("size-[25px]");
     expect(screen.queryByText("医途职业诊断")).not.toBeInTheDocument();
     expect(screen.queryByText("当前状态")).not.toBeInTheDocument();
-    expect(screen.getByText("第 1 步，共 4 步")).toBeInTheDocument();
+    expect(screen.queryByText("第 1 步，共 4 步")).not.toBeInTheDocument();
     expect(
       screen.getByRole("heading", { name: "请选择当前求职阶段" }),
     ).toBeInTheDocument();
@@ -53,10 +53,13 @@ describe("Assessment", () => {
     const milestones = screen.getByRole("list", { name: "诊断步骤" });
 
     expect(within(milestones).getAllByRole("listitem")).toHaveLength(4);
-    expect(within(milestones).getByText("求职阶段").closest("li")).toHaveAttribute(
+    const initialCurrentLabel = within(milestones).getByText("求职阶段");
+
+    expect(initialCurrentLabel.closest("li")).toHaveAttribute(
       "aria-current",
       "step",
     );
+    expect(initialCurrentLabel).toHaveClass("text-primary");
     expect(within(milestones).getByText("工作偏好")).toBeInTheDocument();
     expect(within(milestones).getByText("求职底线")).toBeInTheDocument();
     expect(within(milestones).getByText("优先目标")).toBeInTheDocument();
@@ -64,13 +67,24 @@ describe("Assessment", () => {
     fireEvent.click(screen.getByRole("radio", { name: "应届生" }));
     fireEvent.click(screen.getByRole("button", { name: "确认" }));
 
-    expect(within(milestones).getByText("求职阶段").closest("li")).toHaveAttribute(
-      "data-state",
-      "complete",
+    const completedLabel = within(milestones).getByText("求职阶段");
+    const currentLabel = within(milestones).getByText("工作偏好");
+    const completedItem = completedLabel.closest("li");
+    const currentItem = currentLabel.closest("li");
+
+    expect(completedItem).toHaveAttribute("data-state", "complete");
+    expect(completedLabel).toHaveClass("text-foreground");
+    expect(completedLabel).not.toHaveClass("text-primary");
+    expect(completedItem?.querySelector('[data-part="marker"]')).toHaveClass(
+      "bg-foreground",
     );
-    expect(within(milestones).getByText("工作偏好").closest("li")).toHaveAttribute(
-      "aria-current",
-      "step",
+    expect(currentItem).toHaveAttribute("aria-current", "step");
+    expect(currentLabel).toHaveClass("text-primary");
+    expect(currentItem?.querySelector('[data-part="marker"]')).toHaveClass(
+      "bg-primary",
+    );
+    expect(currentItem?.querySelector('[data-part="connector"]')).toHaveClass(
+      "bg-foreground/50",
     );
   });
 
@@ -128,7 +142,7 @@ describe("Assessment", () => {
     fireEvent.click(screen.getByRole("radio", { name: "在职转型" }));
     fireEvent.click(screen.getByRole("button", { name: "确认" }));
 
-    expect(screen.getByText("第 2 步，共 4 步")).toBeInTheDocument();
+    expect(screen.queryByText("第 2 步，共 4 步")).not.toBeInTheDocument();
     expect(
       screen.getByRole("heading", {
         name: "请选择符合预期的工作方式",

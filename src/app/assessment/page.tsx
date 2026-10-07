@@ -192,10 +192,7 @@ function QuestionStep({
 
   return (
     <section className="mx-auto max-w-3xl px-6 pb-20 pt-8 sm:pt-14">
-      <div className="flex items-center justify-between text-sm">
-        <span className="font-medium text-primary-dark">
-          第 {stepNumber} 步，共 4 步
-        </span>
+      <div className="flex justify-end text-sm">
         <span className="text-muted-foreground">预计用时 2 分钟</span>
       </div>
       <div
@@ -225,12 +222,14 @@ function QuestionStep({
               {index > 0 ? (
                 <span
                   aria-hidden="true"
-                  className={`absolute -left-1/2 top-3 h-px w-full ${index <= currentStep ? "bg-primary" : "bg-border"}`}
+                  className={`absolute -left-1/2 top-3 h-px w-full ${index <= currentStep ? "bg-foreground/50" : "bg-border"}`}
+                  data-part="connector"
                 />
               ) : null}
               <span
                 aria-hidden="true"
-                className={`relative z-10 grid size-6 place-items-center rounded-full border text-[11px] font-semibold ${state === "pending" ? "border-border bg-background text-muted-foreground" : "border-primary bg-primary text-primary-foreground"}`}
+                className={`relative z-10 grid size-6 place-items-center rounded-full border text-[11px] font-semibold ${state === "pending" ? "border-border bg-background text-muted-foreground" : state === "complete" ? "border-foreground bg-foreground text-background" : "border-primary bg-primary text-primary-foreground"}`}
+                data-part="marker"
               >
                 {state === "complete" ? (
                   <Check className="size-3.5" strokeWidth={2.5} />
@@ -239,7 +238,7 @@ function QuestionStep({
                 )}
               </span>
               <span
-                className={`mt-2 truncate text-xs ${state === "current" ? "font-semibold text-foreground" : state === "complete" ? "font-medium text-primary-dark" : "text-muted-foreground"}`}
+                className={`mt-2 truncate text-xs ${state === "current" ? "font-semibold text-primary" : state === "complete" ? "font-medium text-foreground" : "text-muted-foreground"}`}
               >
                 {label}
               </span>
