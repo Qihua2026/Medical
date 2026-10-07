@@ -226,11 +226,11 @@ function QuestionStep({
           </span>
         </p>
       </div>
-      <fieldset className="mt-10 grid gap-3 sm:grid-cols-2">
+      <fieldset className="mt-10 grid grid-cols-1 gap-3">
         <legend className="sr-only">{question.legend}</legend>
         {question.options.map((option) => (
           <label
-            className="group flex min-h-16 cursor-pointer items-center gap-3 rounded-2xl border border-border bg-card px-5 py-4 text-sm font-medium text-foreground shadow-sm transition hover:border-primary/35 hover:bg-primary/5"
+            className="group flex min-h-16 w-full cursor-pointer items-center gap-3 rounded-2xl border border-border bg-card px-5 py-4 text-sm font-medium text-foreground shadow-sm transition hover:border-primary/35 hover:bg-primary/5"
             key={option}
           >
             <input
@@ -245,8 +245,8 @@ function QuestionStep({
           </label>
         ))}
       </fieldset>
-      <div className="mt-8 grid gap-3 sm:grid-cols-2">
-        <span className="group relative sm:col-start-2">
+      <div className="mt-8 w-full">
+        <span className="group relative block w-full">
           <Button
             aria-describedby={!answer ? "confirm-disabled-hint" : undefined}
             className="w-full disabled:opacity-100"

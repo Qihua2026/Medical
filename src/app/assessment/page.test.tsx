@@ -31,6 +31,21 @@ describe("Assessment", () => {
     expect(screen.queryByRole("complementary")).not.toBeInTheDocument();
   });
 
+  it("stacks every option vertically and keeps confirmation full width", () => {
+    render(<Assessment />);
+
+    const optionGroup = screen.getByRole("group", {
+      name: "当前求职阶段",
+    });
+    const confirmButton = screen.getByRole("button", { name: "确认" });
+
+    expect(optionGroup).toHaveClass("grid-cols-1");
+    expect(optionGroup).not.toHaveClass("sm:grid-cols-2");
+    expect(confirmButton).toHaveClass("w-full");
+    expect(confirmButton.parentElement).toHaveClass("w-full");
+    expect(confirmButton.parentElement).not.toHaveClass("sm:col-start-2");
+  });
+
   it("keeps the confirmation visually primary while disabling it until a stage is selected", () => {
     render(<Assessment />);
 
@@ -40,14 +55,6 @@ describe("Assessment", () => {
     expect(confirmButton).toHaveClass(
       "w-full",
       "disabled:opacity-100",
-    );
-    expect(confirmButton.parentElement).toHaveClass(
-      "relative",
-      "sm:col-start-2",
-    );
-    expect(confirmButton.parentElement?.parentElement).toHaveClass(
-      "grid",
-      "sm:grid-cols-2",
     );
 
     fireEvent.click(screen.getByRole("radio", { name: "博士 / 博后" }));
