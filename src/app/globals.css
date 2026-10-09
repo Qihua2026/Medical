@@ -1,0 +1,25 @@
+@import "tailwindcss";
+
+:root {
+  --background: #f8faf7; --foreground: #1f2e25; --card: #ffffff; --card-foreground: #1f2e25;
+  --primary: #4e9365; --primary-dark: #39774e; --primary-foreground: #ffffff;
+  --secondary: #eaf3ec; --secondary-foreground: #315f40; --muted: #eef2ed;
+  --muted-foreground: #607066; --border: #dfe7df; --ring: #4e9365; --radius: 1rem;
+}
+
+@theme inline {
+  --color-background: var(--background); --color-foreground: var(--foreground); --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground); --color-primary: var(--primary); --color-primary-dark: var(--primary-dark);
+  --color-primary-foreground: var(--primary-foreground); --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground); --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground); --color-border: var(--border); --color-ring: var(--ring);
+  --font-sans: var(--font-sans-ui); --radius-sm: calc(var(--radius) - 6px); --radius-md: calc(var(--radius) - 3px);
+  --radius-lg: var(--radius); --radius-xl: calc(var(--radius) + 6px);
+}
+
+* { border-color: var(--border); }
+html { scroll-behavior: smooth; }
+body { background: var(--background); color: var(--foreground); }
+button, a { -webkit-tap-highlight-color: transparent; }
+.hero-glow { position: absolute; inset: -12rem -10rem auto auto; width: 40rem; height: 40rem; border-radius: 999px; background: radial-gradient(circle, rgb(78 147 101 / 0.15), transparent 68%); pointer-events: none; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { scroll-behavior: auto !important; transition-duration: 0.01ms !important; } }
